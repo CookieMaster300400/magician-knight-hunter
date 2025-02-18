@@ -149,7 +149,7 @@ namespace ConsoleApp1
                             inventory = new Inventory(KeySymbol, KnifeSymbol, HealSymbol, inventory.Keys, inventory.FoldingKnife, 0);
                         }
                     }
-                    else if (enter[0] == '*' && box.box[index - 1] != "[ ]")
+                    else if (enter[0] == '*' && index != 0 && box.box[index - 1] != "[ ]")
                     {
                         if (box.box[index - 1] == KeySymbol)
                         {
