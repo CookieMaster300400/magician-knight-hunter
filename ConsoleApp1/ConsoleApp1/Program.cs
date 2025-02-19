@@ -22,7 +22,7 @@ namespace ConsoleApp1
                 }
             }
         }
-        static void ShowCharacterAndStorage(Character player)
+        static void ShowCharacterAndInformation(Character player)
         {
             Console.Clear();
             Console.Write($"Чтобы зайти в интвентарь нажмите 1\nЧтобы посмотреть содержимое сундука нажмите 2\n\n\t{player.CharacterName}\n\n{player.Head}\t\t\tHealthPoints: {player.HealthPoints}\n{player.Body}\t\t\tStability: {player.Stability}\n{player.Legs}\t\t\tPower: {player.Power}\n\t\t\t\tAgility: {player.Agility}\n\t [+]\t\t\tIntelligence: {player.Intelligence}\n");
@@ -91,7 +91,7 @@ namespace ConsoleApp1
         {
             while (true)
             {
-                ShowCharacterAndStorage(player);
+                ShowCharacterAndInformation(player);
                 Console.Write("Чтобы закрыть сундук нажмите 0\nЧтобы взять все предметы нажмите ++\nЧтобы выложить все предметы нажмите --\nЧтобы взять конкретные предметы нажмите + и порядковый номер\nЧтобы выложить конкретные предметы нажмите - и порядковый номер\nЧтобы взять единицу конкретного предмета нажмите * и порядковый номер\nЧтобы выложить единицу конкретного предмета нажмите / и порядковый номер\n\n\t");
                 InsideBox(box.box, inventory);
                 Console.Write("\n\n\t");
@@ -149,7 +149,7 @@ namespace ConsoleApp1
                             inventory = new Inventory(KeySymbol, KnifeSymbol, HealSymbol, inventory.Keys, inventory.FoldingKnife, 0);
                         }
                     }
-                    else if (enter[0] == '*' && box.box[index - 1] != "[ ]")
+                    else if (enter[0] == '*' && index != 0 && box.box[index - 1] != "[ ]")
                     {
                         if (box.box[index - 1] == KeySymbol)
                         {
@@ -192,7 +192,7 @@ namespace ConsoleApp1
         {
             while (true)
             {
-                ShowCharacterAndStorage(player);
+                ShowCharacterAndInformation(player);
                 if (int.TryParse(Console.ReadLine(), out int num) && num == 1)
                 {
                     InventoryOperations(inventory, player);
