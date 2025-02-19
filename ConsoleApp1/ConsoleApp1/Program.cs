@@ -97,9 +97,9 @@ namespace ConsoleApp1
                 Console.Write("\n\n\t");
                 string enter = Console.ReadLine();
                 int index = 0;
-                if ((enter.Length == 1 && enter[0] == '0') || enter.Length == 2 && ((enter[0] == '+' || enter[0] == '-' || enter[0] == '*' || enter[0] == '-') && (((int.TryParse(enter[1].ToString(), out index) && index != 0) || (enter[1] == '+' || enter[1] == '-')))))
+                if ((enter == "0") || enter.Length == 2 && ((enter[0] == '+' || enter[0] == '-' || enter[0] == '*' || enter[0] == '/') && (((int.TryParse(enter[1].ToString(), out index) && index != 0) || (enter[1] == '+' || enter[1] == '-')))))
                 {
-                    if (enter[0] == '0')
+                    if (enter == "0")
                     {
                         break;
                     }
