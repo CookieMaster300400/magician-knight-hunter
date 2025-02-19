@@ -97,7 +97,7 @@ namespace ConsoleApp1
                 Console.Write("\n\n\t");
                 string enter = Console.ReadLine();
                 int index = 0;
-                if ((enter.Length == 1 && enter[0] == '0') || enter.Length == 2 && ((enter[0] == '+' || enter[0] == '-' || enter[0] == '*' || enter[0] == '-') && ((int.TryParse(enter[1].ToString(), out index) || (enter[1] == '+' || enter[1] == '-')))))
+                if ((enter.Length == 1 && enter[0] == '0') || enter.Length == 2 && ((enter[0] == '+' || enter[0] == '-' || enter[0] == '*' || enter[0] == '-') && (((int.TryParse(enter[1].ToString(), out index) && index != 0) || (enter[1] == '+' || enter[1] == '-')))))
                 {
                     if (enter[0] == '0')
                     {
@@ -113,7 +113,7 @@ namespace ConsoleApp1
                         inventory = new Inventory(KeySymbol, KnifeSymbol, HealSymbol, box.Keys + inventory.Keys, box.FoldingKnife + inventory.FoldingKnife, box.Heals + inventory.Heal);
                         box = new Box(numberOfCells, KeySymbol, KnifeSymbol, HealSymbol);
                     }
-                    else if (enter[0] == '+' && index != 0 && box.box[index - 1] != "[ ]")
+                    else if (enter[0] == '+' && box.box[index - 1] != "[ ]")
                     {
                         if (box.box[index - 1] == KeySymbol)
                         {
@@ -131,7 +131,7 @@ namespace ConsoleApp1
                             box = new Box(numberOfCells, KeySymbol, KnifeSymbol, HealSymbol, box.Keys, 0, box.FoldingKnife);
                         }
                     }
-                    else if (enter[0] == '-' && index != 0 && inventory.inventory[index - 1] != "[ ]")
+                    else if (enter[0] == '-' && inventory.inventory[index - 1] != "[ ]")
                     {
                         if (inventory.inventory[index - 1] == KeySymbol)
                         {
@@ -149,7 +149,7 @@ namespace ConsoleApp1
                             inventory = new Inventory(KeySymbol, KnifeSymbol, HealSymbol, inventory.Keys, inventory.FoldingKnife, 0);
                         }
                     }
-                    else if (enter[0] == '*' && index != 0 && box.box[index - 1] != "[ ]")
+                    else if (enter[0] == '*' && box.box[index - 1] != "[ ]")
                     {
                         if (box.box[index - 1] == KeySymbol)
                         {
@@ -167,7 +167,7 @@ namespace ConsoleApp1
                             box = new Box(numberOfCells, KeySymbol, KnifeSymbol, HealSymbol, box.Keys, box.Heals - 1, box.FoldingKnife);
                         }
                     }
-                    else if (enter[0] == '/' && index != 0 && inventory.inventory[index - 1] != "[ ]")
+                    else if (enter[0] == '/' && inventory.inventory[index - 1] != "[ ]")
                     {
                         if (inventory.inventory[index - 1] == KeySymbol)
                         {
