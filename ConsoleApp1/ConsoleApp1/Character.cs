@@ -4,28 +4,45 @@ namespace ConsoleApp1
 {
     internal class Character
     {
-        public string CharacterName { get; set; }
-        public ConsoleApp1.Program.Characters CharacterClass { get; set; }
-        public int HealthPoints { get; set; }
-        public int Stability { get; }
-        public int Power { get; }
-        public int Agility { get; }
-        public int Intelligence { get; }
-        public string Head { get; set; }
-        public string Body { get; set; }
-        public string Legs { get; set; }
-        public Character(string characterName, ConsoleApp1.Program.Characters character, List<object[]> characteristics)
+        private static readonly List<int[]> characteristics = new()
+            {
+                new int[] { 3, 8, 10, 4, 10 },
+                new int[] { 4, 6, 8, 10, 7 },
+                new int[] {5, 10, 9, 2, 5 }
+            };
+        public enum Characters
+        {
+            Magician,
+            Hunter,
+            Knight
+        }
+        public static Characters characterType;
+        public static void ChooseCharacter()
+        {
+            int numberOfElements = Enum.GetValues(typeof(Characters)).Length;
+            while (true)
+            {
+                if (int.TryParse(Console.ReadLine(), out int character) && character <= numberOfElements && character > 0)
+                {
+                    characterType = (Characters)character - 1;
+                    break;
+                }
+            }
+        }
+        public string CharacterName { get; init; }
+        public int HealthPoints { get; init; }
+        public int Stability { get; init; }
+        public int Power { get; init; }
+        public int Agility { get; init; }
+        public int Intelligence { get; init; }
+        public Character(string characterName)
         {
             CharacterName = characterName;
-            CharacterClass = character;
-            Head = (string)characteristics[(int)CharacterClass][0];
-            Body = (string)characteristics[(int)CharacterClass][1];
-            Legs = (string)characteristics[(int)CharacterClass][2];
-            HealthPoints = (int)characteristics[(int)CharacterClass][3];
-            Stability = (int)characteristics[(int)CharacterClass][4];
-            Power = (int)characteristics[(int)CharacterClass][5];
-            Agility = (int)characteristics[(int)CharacterClass][6];
-            Intelligence = (int)characteristics[(int)CharacterClass][7];
+            HealthPoints = characteristics[(int)characterType][0];
+            Stability = characteristics[(int)characterType][1];
+            Power = characteristics[(int)characterType][2];
+            Agility = characteristics[(int)characterType][3];
+            Intelligence = characteristics[(int)characterType][4];
         }
     }
 }

@@ -2,45 +2,57 @@
 
 namespace ConsoleApp1
 {
-    internal class Inventory
+    internal class Inventory : Item
     {
-        public string[] inventory { get; init; }
-        public int Keys { get; init; }
-        public int FoldingKnife { get; init; }
-        public int Heal { get; init; }
-        private int KeyCount { get; set; }
-        private int HealCount { get; set; }
-        private int KnifeCount { get; set; }
-        public Inventory(string keySymbol, string knifeSymbol, string healSymbol, int keyCount = 0, int knifeCount = 0, int healCount = 0, int NumberCellsInventory = 8)
+        public string[] InventoryContent { get; init; }
+        public Inventory(int keyCount = 0, int knifeCount = 0, int healCount = 0, int NumberCellsInventory = 8) : base(keyCount, knifeCount, healCount)
         {
-            inventory = new string[NumberCellsInventory];
-            this.KeyCount = keyCount;
-            this.KnifeCount = knifeCount;
-            this.HealCount = healCount;
-            for (int i = 0; i < inventory.Length; i++)
+            InventoryContent = new string[NumberCellsInventory];
+
+            for (int i = 0; i < InventoryContent.Length; i++)
             {
                 if (keyCount > 0)
                 {
-                    inventory[i] = keySymbol;
-                    Keys = keyCount;
+                    InventoryContent[i] = keySymbol;
+                    KeyCount = keyCount;
                     keyCount = 0;
                 }
                 else if (knifeCount > 0)
                 {
-                    inventory[i] = knifeSymbol;
-                    FoldingKnife = knifeCount;
+                    InventoryContent[i] = knifeSymbol;
+                    KnifeCount = knifeCount;
                     knifeCount = 0;
                 }
                 else if (healCount > 0)
                 {
-                    inventory[i] = healSymbol;
-                    Heal = healCount;
+                    InventoryContent[i] = healSymbol;
+                    HealCount = healCount;
                     healCount = 0;
                 }
                 else
                 {
-                inventory[i] = "[ ]";
+                    InventoryContent[i] = "[ ]";
                 }
+            }
+        }
+        public static void CloseInventory(Inventory inventory)
+        {
+            Console.WriteLine("Чтобы закрыть инвентарь нажмите 0");
+            Program.ShowInventory(inventory);
+            while (true)
+            {
+                if (char.TryParse(Console.ReadLine(), out char exit) && exit == '0')
+                {
+                    break;
+                }
+            }
+        }
+        public static void Add(string enter)
+        {
+            if (enter == "++")
+            {
+                KeyCount = KeyCount + Box.KeyCount;
+                Console.WriteLine("drftyguhijkl");
             }
         }
     }

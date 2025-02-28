@@ -1,38 +1,39 @@
 ﻿namespace ConsoleApp1
 {
-    class Box
+    class Box : Item
     {
-        public int Keys { get; init; }
-        public int FoldingKnife { get; init; }
-        public int Heals { get; init; }
-        public string[] box { get; init; }
-        private int KeyCount { get; set; }
-        private int HealCount { get; set; }
-        private int KnifeCount { get; set; }
-        public Box(int numberOfCells, string keySymbol, string knifeSymbol, string healSymbol, int keyCount = 0, int healCount = 0, int knifeCount = 0)
+        public static int BoxSize()
         {
-            KeyCount = keyCount;
-            KnifeCount = knifeCount;
-            HealCount = healCount;
+            const int MinBoxSize = 6;
+            const int MaxBoxSize = 20;
+            while (true)
+            {
+                if (int.TryParse(Console.ReadLine(), out int numberOfCells) && numberOfCells >= MinBoxSize && numberOfCells <= MaxBoxSize && numberOfCells % 2 == 0)
+                    return numberOfCells;
+            }
+        }
+        public string[] box { get; init; }
+        public Box(int numberOfCells, int keyCount = 0, int healCount = 0, int knifeCount = 0) : base(keyCount, knifeCount, healCount)
+        {
             box = new string[numberOfCells];
             for (int i = 0; i < numberOfCells; i++)
             {
                 if (keyCount > 0)
                 {
                     box[i] = keySymbol;
-                    Keys = keyCount;
+                    KeyCount = keyCount;
                     keyCount = 0;
                 }
                 else if (knifeCount > 0)
                 {
                     box[i] = knifeSymbol;
-                    FoldingKnife = knifeCount;
+                    KnifeCount = knifeCount;
                     knifeCount = 0;
                 }
                 else if (healCount > 0)
                 {
                     box[i] = healSymbol;
-                    Heals = healCount;
+                    HealCount = healCount;
                     healCount = 0;
                 }
                 else
