@@ -18,10 +18,6 @@ namespace ConsoleApp1
                 }
             }
         }
-        static void BoxHints()
-        {
-            Console.WriteLine("Чтобы выйти из сундука нажмите 0\nЧтобы  предметы нажмите ++");
-        }
         static void BoxOperations()
         {
             while (true)
@@ -44,7 +40,7 @@ namespace ConsoleApp1
             Console.Clear();
             ShowScreenHints();
             Character.ShowPlayerCharacteristics();
-            BoxHints();
+            Console.WriteLine("Чтобы выйти из сундука нажмите 0\nЧтобы  предметы нажмите ++");
             Box.ShowBox();
             Inventory.ShowLineOfIcons();
         }
