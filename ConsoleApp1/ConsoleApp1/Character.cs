@@ -1,48 +1,88 @@
-﻿using System.Reflection.PortableExecutable;
-
 namespace ConsoleApp1
 {
-    internal class Character
+    class Character
     {
-        private static readonly List<int[]> characteristics = new()
-            {
-                new int[] { 3, 8, 10, 4, 10 },
-                new int[] { 4, 6, 8, 10, 7 },
-                new int[] {5, 10, 9, 2, 5 }
-            };
         public enum Characters
         {
             Magician,
-            Hunter,
-            Knight
+            Knight,
+            Hunter
         }
-        public static Characters characterType;
+        private static Characters _characterType;
+        private static byte _power;
+        private static byte _agility;
+        private static byte _intelligence;
+        private static byte _healthPoints;
+        private static byte _stability;
+        private static string _name;
+        private static void ShowCharacters()
+        {
+            for(int i = 0; i < Enum.GetValues(typeof(Characters)).Length; i++)
+            {
+                Console.Write($"      {(Characters)i}    ");
+            }
+        }
         public static void ChooseCharacter()
         {
-            int numberOfElements = Enum.GetValues(typeof(Characters)).Length;
             while (true)
             {
-                if (int.TryParse(Console.ReadLine(), out int character) && character <= numberOfElements && character > 0)
+                Console.Clear();
+                ShowCharacters();
+                Console.WriteLine("\nЧтобы выбрать персонажа нужно написать его порядковый номер");
+                if (int.TryParse(Console.ReadLine(), out int index) && index - 1 >= 0 && index - 1 < Enum.GetValues(typeof(Characters)).Length)
                 {
-                    characterType = (Characters)character - 1;
+                    _characterType = (Characters)index - 1;
                     break;
                 }
             }
         }
-        public string CharacterName { get; init; }
-        public int HealthPoints { get; init; }
-        public int Stability { get; init; }
-        public int Power { get; init; }
-        public int Agility { get; init; }
-        public int Intelligence { get; init; }
-        public Character(string characterName)
+        public static void SetPlayerCharacteristics()
         {
-            CharacterName = characterName;
-            HealthPoints = characteristics[(int)characterType][0];
-            Stability = characteristics[(int)characterType][1];
-            Power = characteristics[(int)characterType][2];
-            Agility = characteristics[(int)characterType][3];
-            Intelligence = characteristics[(int)characterType][4];
+            if (_characterType == Characters.Magician)
+            {
+                _agility = 4;
+                _healthPoints = 3;
+                _stability = 8;
+                _power = 10;
+                _intelligence = 10;
+            }
+            else if (_characterType == Characters.Knight)
+            {
+                _agility = 2;
+                _healthPoints = 5;
+                _stability = 10;
+                _power = 9;
+                _intelligence = 5;
+            }
+            else
+            {
+                _agility = 10;
+                _healthPoints = 4;
+                _stability = 6;
+                _power = 8;
+                _intelligence = 7;
+            }
+        }
+        public static void SetName()
+        {
+            const byte MinNameLength = 2;
+            const byte MaxNameLength = 10;
+            while(true)
+            {
+                Console.Clear();
+                Console.WriteLine($"   Имя должно быть не короче {MinNameLength} символов и не длиннее {MaxNameLength}\n   Какое будет имя у персонажа?");
+                string name = Console.ReadLine();
+                if(name.Length >= MinNameLength && name.Length <= MaxNameLength)
+                {
+                    _name = name;
+                    break;
+                }
+            }
+        }
+        public static void ShowPlayerCharacteristics()
+        {
+            Console.WriteLine($"\n   {_characterType}: {_name}\n");
+            Console.WriteLine($"   Ловкость: {_agility}\n   Здоровье: {_healthPoints}\n   Устойчивость: {_stability}\n   Сила: {_power}\n   Интеллект: {_intelligence}");
         }
     }
 }
