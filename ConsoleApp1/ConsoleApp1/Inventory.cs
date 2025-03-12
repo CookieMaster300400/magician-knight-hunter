@@ -1,59 +1,59 @@
-﻿using System;
-
 namespace ConsoleApp1
 {
-    internal class Inventory : Item
+    class Inventory : Item
     {
-        public string[] InventoryContent { get; init; }
-        public Inventory(int keyCount = 0, int knifeCount = 0, int healCount = 0, int NumberCellsInventory = 8) : base(keyCount, knifeCount, healCount)
-        {
-            InventoryContent = new string[NumberCellsInventory];
+        private protected static int _keyCount;
+        private protected static int _knifeCount;
+        private protected static int _healCount;
+        private static byte _inventorySize = 6;
 
-            for (int i = 0; i < InventoryContent.Length; i++)
+        private static string[] _inventory = new string[_inventorySize];
+        public static void FillInventory(int key, int knife, int heal)
+        {
+            for (int i = 0; i < _inventory.Length; i++)
             {
-                if (keyCount > 0)
+                if (key > 0 && key < maxValue)
                 {
-                    InventoryContent[i] = keySymbol;
-                    KeyCount = keyCount;
-                    keyCount = 0;
+                    _keyCount = key;
+                    key = 0;
+                    _inventory[i] = KeySymbol;
                 }
-                else if (knifeCount > 0)
+                else if (knife > 0 && knife < maxValue)
                 {
-                    InventoryContent[i] = knifeSymbol;
-                    KnifeCount = knifeCount;
-                    knifeCount = 0;
+                    _knifeCount = knife;
+                    knife = 0;
+                    _inventory[i] = KnifeSymbol;
                 }
-                else if (healCount > 0)
+                else if (heal > 0 && heal < maxValue)
                 {
-                    InventoryContent[i] = healSymbol;
-                    HealCount = healCount;
-                    healCount = 0;
+                    _healCount = heal;
+                    heal = 0;
+                    _inventory[i] = HealSymbol;
                 }
                 else
                 {
-                    InventoryContent[i] = "[ ]";
+                    _inventory[i] = EmptyPlace;
                 }
             }
         }
-        public static void CloseInventory(Inventory inventory)
+        public Inventory() : base()
         {
-            Console.WriteLine("Чтобы закрыть инвентарь нажмите 0");
-            Program.ShowInventory(inventory);
-            while (true)
+            FillInventory(0, 0, 0);
+        }
+        public static void ShowFullInventoryInfo()
+        {
+            for (int i = 0; i < _inventorySize; i++)
             {
-                if (char.TryParse(Console.ReadLine(), out char exit) && exit == '0')
-                {
-                    break;
-                }
+                Console.WriteLine(_inventory[i] == KeySymbol ? $"{_inventory[i]} - {_keyCount}" : _inventory[i] == KnifeSymbol ? $"{_inventory[i]} - {_knifeCount}" : _inventory[i] == HealSymbol ? $"{_inventory[i]} - {_healCount}" : EmptyPlace);
             }
         }
-        public static void Add(string enter)
+        public static void ShowLineOfIcons()
         {
-            if (enter == "++")
+            for (int i = 0; i < _inventorySize; i++)
             {
-                KeyCount = KeyCount + Box.KeyCount;
-                Console.WriteLine("drftyguhijkl");
+                Console.Write($"{_inventory[i]} ");
             }
+            Console.WriteLine();
         }
     }
 }
